@@ -17,10 +17,12 @@ signed_b64 = base64.b64encode(signed)
 
 encrypted = encode(signed_b64.decode(), bob_public_patterns)
 
-received_signed_b64 = decode(encrypted, bob_private_patterns)
+received_signed_b64 = decode(encrypted, bob_private_patterns, return_bytes=True)
 
-received_signed = base64.b64decode(received_signed_b64)
+#received_signed = base64.b64decode(received_signed_b64)
 
-received_original = decode(received_signed, alice_public_patterns, return_bytes=False)
+received_b64 = decode(received_signed_b64, alice_public_patterns, return_bytes=True)
 
-print("Message received :", received_original)
+received = base64.b64decode(received_b64)
+
+print("Message received :", received)
